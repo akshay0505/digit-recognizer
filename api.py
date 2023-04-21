@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request,jsonify, make_response
-from digitRecognizer import process_predict
+# from digitRecognizer import process_predict
 
 app = Flask(__name__)
 
@@ -16,7 +16,8 @@ def status_check():
 def predict():
     try:
         image = request.files['image'].read()
-        res = process_predict(image)
+        # res = process_predict(image)
+        res = [1]
         return jsonify({"status": True, "data": { "digit": res[0] } , "message":"api is running" })
     except Exception as e:
         print(e)
