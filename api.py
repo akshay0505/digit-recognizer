@@ -17,8 +17,7 @@ def predict():
     try:
         image = request.files['image'].read()
         res = process_predict(image)
-        # res = [1]
-        return jsonify({"status": True, "data": { "digit": res[0] } , "message":"api is running" })
+        return jsonify({"status": True, "data": { "digit": str(res[0]) } , "message":"api is running" })
     except Exception as e:
         print(e)
         return jsonify({"status": False, "data": {} , "message":"Error, couldn't fetch the data" })

@@ -1,4 +1,5 @@
 from tensorflow import keras
+import tensorflow as tf
 import pandas as pd
 import cv2
 import numpy as np
@@ -15,11 +16,12 @@ def process_predict(image):
     img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
     img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     img = cv2.resize(img,(28,28),interpolation = cv2.INTER_LINEAR)
-    img = img.reshape(1,28,28)
+    img = img.reshape(1,28,28,1)/255
     return predict(img)
 
 def predict(images):
-    pred = model.predict(images).argmax(axis=1)
+    images = tf.convert_to_tensor(images,dtype=tf.float32)
+    pred = model(images).numpy().argmax(axis=1)
     return pred
 
 if __name__=="__main__":
